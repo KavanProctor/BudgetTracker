@@ -38,6 +38,33 @@ while True:
         conn.commit()
 
     elif choice == 2:
-        pass
+        print('Select one of the following options:')
+        print('1. View Expense report: ')
+        print('2. View monthly expense report by category: ')
+
+        choice_2 = int(input())
+        if choice_2 == 1:
+            cur.execute("SELECT * FROM expenses")
+            rows = cur.fetchall()
+            for row in rows:
+                print(row)
+        if choice_2 == 2:
+            month = input("Enter the month you would like to view (MM): ")
+            year = input("Enter the year you would like to view (YYYY): ")
+            cur.execute("""SELECT category, SUM(price) FROM expenses 
+                WHERE strftime('%m', Date) = ? AND strftime('%Y', Date) = ?
+                GROUP BY category""",(month,year))
+            expenses = cur.fetchall()
+            for expense in expenses:
+                print(f"Category: {expense[0]}, Total: {expense[1]}")#not printing will need to work on
+                
+        else:
+            exit()
     else:
         exit()
+
+    repeat = input("Would you like to add more (y/n): ")
+    if repeat.lower() != 'y':
+        break
+
+conn.close()
