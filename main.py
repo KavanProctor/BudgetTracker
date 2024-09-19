@@ -12,7 +12,7 @@ while True:
     choice = int(input())
     if choice == 1:
         print('please provide us with the information about this expense: ')
-        date = input("What date did this expense occur on (MM-DD-YYYY): ")
+        date = input("What date did this expense occur on (DD-MM-YYYY): ")
         description = input("Give a description of the expense: ")
 
         #let the user choose from existing categories or create a new one
